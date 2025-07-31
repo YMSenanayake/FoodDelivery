@@ -12,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 //placing user order for frontend
 const placeOrder = async (req, res) => {
     const frontend_url = "http://localhost:5173";
-    
+
 
     try {
         // Validate stripe object
@@ -94,5 +94,16 @@ const userOrders = async (req, res) => {
 }
 
 //Listing orders for admin panel
+const listOrders = async (req, res) => {
+    try {
+        const orders = await orderModel.find({});
+        res.json({success:true,data:orders})
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:"Error"})
+    }
+}
 
-export { placeOrder, verifyOrder, userOrders }
+//
+
+export { placeOrder, verifyOrder, userOrders,listOrders }
